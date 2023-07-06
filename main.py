@@ -188,6 +188,10 @@ class Recorder(object):
         print("self.r_values")
         print(self.r_values)
         
+        
+        #Clock.schedule_interval(self.get_value, 0.1)
+        self.get_value()
+        
         '''
         # reduce by 20%
         r_values = map(lambda x: x * 0.8, r_values)
@@ -211,11 +215,11 @@ class Recorder(object):
     def start(self):
         self.mic.start()
         Clock.schedule_interval(self.readbuffer, 1/samples_per_second)
+        self.ids.graph.add_plot(self.plot)
         print("def start(self)")
         a = datetime.now().strftime('%d-%m-%Y %H:%M:%S') 
         print(a)
-        self.ids.graph.add_plot(self.plot)
-        Clock.schedule_interval(self.get_value, 0.1)
+
  
     def readbuffer(self, dt):
         self.mic.poll()
