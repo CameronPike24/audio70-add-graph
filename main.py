@@ -74,6 +74,8 @@ class Recorder(object):
         print(self.AudioSource)
         print("This is the mic channels")
         print(self.mic.channels)
+        print("self.BufferSize")
+        print(self.BufferSize)
         
         
         
@@ -606,7 +608,9 @@ class RecordForm(BoxLayout): #
         #REC.prepare()
         REC.start()
         self.ids.graph.add_plot(self.plot)
-        Clock.schedule_interval(self.get_value, 0.1)
+        #Clock.schedule_interval(self.get_value, 0.1)
+        Clock.schedule_interval(self.get_value, 1/samples_per_second)
+        
         #stop recording after recordtime value
         Clock.schedule_once(self.stop_record, recordtime)
         #Clock.schedule_interval(self.update_display, 1/30.)
@@ -619,7 +623,10 @@ class RecordForm(BoxLayout): #
         #self.b_record.disabled = False
         
     def get_value(self, dt):
-        self.plot.points = [(i, j/5) for i, j in enumerate(r_values)]        
+        print("r_values for graph")
+        print(r_values)
+        #self.plot.points = [(i, j/5) for i, j in enumerate(r_values)] 
+        self.plot.points = [(i, j/100) for i, j in enumerate(r_values)]         
         
  
     def update_display(self,dt):
