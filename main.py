@@ -186,7 +186,7 @@ class Recorder(object):
         print("r_values")
         print(r_values)
         #Plot graph
-        RecordForm.get_value(r_values)
+        RecordForm.get_value(self, r_values)
         
         '''
         # reduce by 20%
@@ -625,7 +625,7 @@ class RecordForm(BoxLayout): #
         #self.b_record.disabled = False
         
     #def get_value(self, dt):
-    def get_value(arrayValues):
+    def get_value(self, arrayValues):
         print("r_values for graph")
         print(arrayValues)
         self.plot.points = [(i, j/5) for i, j in enumerate(arrayValues)] 
