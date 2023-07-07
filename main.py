@@ -43,6 +43,7 @@ PATH = "rec_test1.wav"
  
 recordtime = 5
 samples_per_second = 60
+r_values = []
  
  
 class RootScreen(BoxLayout): #
@@ -53,12 +54,7 @@ class RootScreen(BoxLayout): #
        
 
 class Recorder(object):
-
-    def __init__(self, **kwargs):
-        super(Recorder, self).__init__(**kwargs)
-        
-        self.plot = MeshLinePlot(color=[1, 0, 0, 1]) 
-        
+    def __init__(self):
         # get the needed Java classes
         self.MediaRecorder = autoclass('android.media.MediaRecorder')
         self.AudioSource = autoclass('android.media.MediaRecorder$AudioSource')
@@ -184,13 +180,9 @@ class Recorder(object):
         # get right values only
         #r_values = values[1::2] # gives you every second value eg [1,2,3,4,5,6] would give [2,4,6,8]
         #r_values = values[1::1]
-        self.r_values = values[:] #a copy of all elements
-        print("self.r_values")
-        print(self.r_values)
-        
-        
-        #Clock.schedule_interval(self.get_value, 0.1)
-        self.get_value()
+        r_values = values[:] #a copy of all elements
+        print("r_values")
+        print(r_values)
         
         '''
         # reduce by 20%
@@ -215,26 +207,17 @@ class Recorder(object):
     def start(self):
         self.mic.start()
         Clock.schedule_interval(self.readbuffer, 1/samples_per_second)
-        self.ids.graph.add_plot(self.plot)
         print("def start(self)")
         a = datetime.now().strftime('%d-%m-%Y %H:%M:%S') 
         print(a)
-
  
     def readbuffer(self, dt):
         self.mic.poll()
  
     def dummy(self, dt):
         print ("dummy")
-        
-        
-    def get_value(self, dt):
-        #self.plot.points = [(i, j/5) for i, j in enumerate(levels)]  
-        self.plot.points = [(ii, jj/5) for ii, jj in enumerate(self.r_values )] 
-               
  
     def stop(self):
-        Clock.unschedule(self.get_value)
         Clock.schedule_once(self.dummy, 0.5)
         Clock.unschedule(self.readbuffer)
         self.mic.stop()
@@ -613,15 +596,17 @@ class RecordApp(App):
 class RecordForm(BoxLayout): #
     #b_record = ObjectProperty()
     #p_bar = ObjectProperty()
- 
-
- 
+    def __init__(self, **kwargs):
+        super(RecordForm, self).__init__(**kwargs)    
+        self.plot = MeshLinePlot(color=[1, 0, 0, 1])
  
     def start_record(self):
         #self.b_record.disabled = True
         #self.p_bar.max = recordtime
         #REC.prepare()
         REC.start()
+        self.ids.graph.add_plot(self.plot)
+        Clock.schedule_interval(self.get_value, 0.1)
         #stop recording after recordtime value
         Clock.schedule_once(self.stop_record, recordtime)
         #Clock.schedule_interval(self.update_display, 1/30.)
@@ -630,17 +615,16 @@ class RecordForm(BoxLayout): #
         #Clock.unschedule(self.update_display)
         #self.p_bar.value = 0
         REC.stop()
+        Clock.unschedule(self.get_value)
         #self.b_record.disabled = False
+        
+    def get_value(self, dt):
+        self.plot.points = [(i, j/5) for i, j in enumerate(r_values)]        
+        
  
     def update_display(self,dt):
         #self.p_bar.value = self.p_bar.value + dt
-        print("here")       
-        
-        
-        
-
- 
-         
+        print("here")        
         
 '''
 class JKMain(AnchorLayout):
