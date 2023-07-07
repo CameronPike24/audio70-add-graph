@@ -186,7 +186,7 @@ class Recorder(object):
         print("r_values")
         print(r_values)
         #Plot graph
-        graph_values = r_values[0:600]
+        graph_values = r_values[:]
         print("graph_values")
         print(graph_values)
         
