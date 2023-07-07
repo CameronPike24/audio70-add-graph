@@ -186,8 +186,12 @@ class Recorder(object):
         print("r_values")
         print(r_values)
         #Plot graph
+        graph_values = r_values[0:600]
+        print("graph_values")
+        print(graph_values)
+        
         self.record_form = RecordForm()
-        self.record_form.get_value(r_values)
+        self.record_form.get_value(graph_values)
         
         '''
         # reduce by 20%
