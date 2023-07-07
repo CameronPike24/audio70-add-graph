@@ -625,7 +625,7 @@ class RecordForm(BoxLayout): #
         #self.b_record.disabled = False
         
     #def get_value(self, dt):
-    def get_value(self, arrayValues):
+    def get_value(arrayValues):
         print("r_values for graph")
         print(arrayValues)
         self.plot.points = [(i, j/5) for i, j in enumerate(arrayValues)] 
