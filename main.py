@@ -180,10 +180,13 @@ class Recorder(object):
         len_count = len(buf)/2
 
         #sh = struct.unpack('h'*len_count , buf)
-        sh = np.array(struct.unpack('<h', buf))
-        print("sh")
-        print(sh)
+        #sh = np.array(struct.unpack('<h', buf))
+        #print("sh")
+        #print(sh)
         
+        decoded = np.frombuffer(buf, np.int16)
+        print("decoded")
+        print(decoded)
         
         
         values = array("h", buf)
