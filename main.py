@@ -185,8 +185,14 @@ class Recorder(object):
         r_values = values[:] #a copy of all elements
         print("r_values")
         print(r_values)
+        
+        
+        
         #Plot graph
         graph_values = r_values[:]
+        
+        graph_values = np.array(struct.unpack('<h', graph_values))
+        #graph_values = np.array(graph_values ) / 32767
         print("graph_values")
         print(graph_values)
         
