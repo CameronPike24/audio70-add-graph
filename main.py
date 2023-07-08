@@ -191,7 +191,7 @@ class Recorder(object):
         #Plot graph
         graph_values = r_values[:]
         
-        graph_values = np.array(struct.unpack('<h', graph_values))
+        #graph_values = np.array(struct.unpack('<h', graph_values))
         #graph_values = np.array(graph_values ) / 32767
         print("graph_values")
         print(graph_values)
@@ -640,6 +640,8 @@ class RecordForm(BoxLayout): #
         print("r_values for graph")
         print(array_values)
         self.plot.points = [(i, j/5) for i, j in enumerate(array_values)] 
+        print("self.plot.points")
+        print(self.plot.points)
         #self.plot.points = [(i, j/100) for i, j in enumerate(r_values)]         
         
  
