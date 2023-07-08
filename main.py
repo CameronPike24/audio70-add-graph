@@ -179,7 +179,8 @@ class Recorder(object):
         # assuming myByte is your byte array:
         len_count = len(buf)/2
 
-        sh = struct.unpack('h'*len_count , buf)
+        #sh = struct.unpack('h'*len_count , buf)
+        sh = np.array(struct.unpack('{n}h'.format(n=len_count), buf))
         print("sh")
         print(sh)
         
