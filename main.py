@@ -640,7 +640,9 @@ class RecordForm(BoxLayout): #
         print("r_values for graph")
         print(array_values)
         #NB j//5 not j/5 removes any remainder which results in a float
-        self.plot.points = [(i, j//5) for i, j in enumerate(array_values)] 
+        #self.plot.points = [(i, j//5) for i, j in enumerate(array_values)] 
+        self.plot.points = [(i, j//5) for i, j in enumerate(islice(array_values, 300))] 
+        
         print("self.plot.points")
         print(self.plot.points)
         #self.plot.points = [(i, j/100) for i, j in enumerate(r_values)]         
