@@ -175,6 +175,16 @@ class Recorder(object):
         print("sound[0]")
         print(sound[0])
         '''
+        
+        # assuming myByte is your byte array:
+        len_count = len(buf)/2
+
+        sh = struct.unpack('h'*len_count , buf)
+        print("sh")
+        print(sh)
+        
+        
+        
         values = array("h", buf)
         #values = struct.unpack("<h",buf)
         #values = np.array(struct.unpack("<h",buf))
@@ -640,8 +650,8 @@ class RecordForm(BoxLayout): #
         print("r_values for graph")
         print(array_values)
         #NB j//5 not j/5 removes any remainder which results in a float
-        #self.plot.points = [(i, j//5) for i, j in enumerate(array_values)] 
-        self.plot.points = [(i, j//5) for i, j in enumerate(islice(array_values, 300))] 
+        self.plot.points = [(i, j//5) for i, j in enumerate(array_values)] 
+        #self.plot.points = [(i, j//5) for i, j in enumerate(islice(array_values, 300))] 
         
         print("self.plot.points")
         print(self.plot.points)
